@@ -1,0 +1,76 @@
+-- Reference values: YOUR personal settings (used for tuning recoil presets)
+RefVerticalSens = 15         -- Your vertical sensitivity
+RefHorizontalSens = 27       -- Your horizontal sensitivity
+RefDPI = 1600                -- Your mouse DPI
+RefScopeSens_1x = 26         -- Your 1x scope sensitivity
+RefScopeSens_2_5x = 42       -- Your 2.5x scope sensitivity
+
+-- Recoil presets tuned for YOUR settings above
+local RecoilPresets = {
+    scorpion = { Vertical = 11, Horizontal = 0 },
+    r4c = { Vertical = 17, Horizontal = -1 },
+    f2 = { Vertical = 23, Horizontal = 0 },
+    smg12 = { Vertical = 17, Horizontal = 1 },
+    t5 = { Vertical = 9, Horizontal = 0 },
+    smg11 = { Vertical = 16, Horizontal = 0 },
+    ak12 = { Vertical = 14, Horizontal = -1 },
+    commando = { Vertical = 11, Horizontal = 0 },
+    m4 = { Vertical = 13, Horizontal = -1 },
+    finkalmg = { Vertical = 13, Horizontal = 0 },
+    c8sfw = { Vertical = 14, Horizontal = 0 },
+    type89 = { Vertical = 13, Horizontal = -1 },
+    para = { Vertical = 10, Horizontal = 0 },
+    g8a1 = { Vertical = 13, Horizontal = -1 },
+    mp7 = { Vertical = 10, Horizontal = 0 },
+    vector2x = { Vertical = 18, Horizontal = 0 },
+    vector1x = { Vertical = 12, Horizontal = 0 },
+    vsn = { Vertical = 7, Horizontal = 0 },
+    mp51x = { Vertical = 9, Horizontal = 0 },
+    mp52x = { Vertical = 13, Horizontal = 0 },
+    ar33 = { Vertical = 11, Horizontal = 0 },
+    mpx = { Vertical = 8, Horizontal = 0 }   
+}
+
+-- Example: USER values (change these for adaptation)
+UserVerticalSens = 55        -- Example user's vertical sensitivity
+UserHorizontalSens = 60      -- Example user's horizontal sensitivity
+UserDPI = 1600                -- Example user's DPI
+UserScopeSens_1x = 74        -- Example user's 1x scope sensitivity
+UserScopeSens_2_5x = 13      -- Example user's 2.5x scope sensitivity
+
+EnableRC = true
+RecoilControlMode = "f2"
+RequireToggle = true
+ToggleKey = "CapsLock"
+
+-- Calculate scaling factors
+local vertical_scale = (RefVerticalSens * RefDPI) / (UserVerticalSens * UserDPI)
+local horizontal_scale = (RefHorizontalSens * RefDPI) / (UserHorizontalSens * UserDPI)
+
+-- Calculate scope scaling for user's settings
+local scope_scale_1x = UserScopeSens_1x / RefScopeSens_1x
+local scope_scale_2_5x = UserScopeSens_2_5x / RefScopeSens_2_5x
+
+-- Choose which scope scaling to use (1x or 2.5x), or add logic to select dynamically
+local active_scope_scale = scope_scale_1x -- swap to scope_scale_2_5x for 2.5x
+
+local Recoil = RecoilPresets[RecoilControlMode] or RecoilPresets.f2
+local VerticalStrength = math.floor(Recoil.Vertical * vertical_scale * active_scope_scale)
+local HorizontalStrength = math.floor(Recoil.Horizontal * horizontal_scale * active_scope_scale)
+
+EnablePrimaryMouseButtonEvents(true)
+function OnEvent(event, arg)
+    if EnableRC and (not RequireToggle or IsKeyLockOn(ToggleKey)) then
+        if IsMouseButtonPressed(3) then
+            while IsMouseButtonPressed(3) do
+                if IsMouseButtonPressed(1) then
+                    while IsMouseButtonPressed(1) do
+                        MoveMouseRelative(HorizontalStrength, VerticalStrength)
+                        Sleep(7)
+                    end
+                end
+                Sleep(math.random(6,10))
+            end
+        end
+    end
+end
