@@ -1,7 +1,7 @@
 -- Reference values: YOUR personal settings (used for tuning recoil presets)
 RefVerticalSens = 15         -- Your vertical sensitivity
 RefHorizontalSens = 27       -- Your horizontal sensitivity
-RefDPI = 1600                -- Your mouse DPI
+RefDPI = 1700                -- Your mouse DPI
 RefScopeSens_1x = 26         -- Your 1x scope sensitivity
 RefScopeSens_2_5x = 42       -- Your 2.5x scope sensitivity
 
