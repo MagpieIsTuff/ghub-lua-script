@@ -1,4 +1,6 @@
 # ghub-lua-script
+PRESS CODE THEN COPY FROM LINE 9 AND DOWN!!
+
 ghub lua script undetectable to battle-eye at this time
 current values need to be adjusted to your sensitivity, decimals do NOT work, it takes the first value of the decimal that you gave 5.6 -> 5, NOT 6, it doesnt round up, toggle key caps lock, your recoil will NOT be perfect but it will get alot better and your aim will improve slowly. simple format, easy to understand, working on a version that will calculate from your current sensitivity, what settings are needed for you so that it is an even lazier process for you. very undetectable as battle-eye looks for patterns and this avoids that with fairly human recoil and it updates every 6-10ms instead of a set time to update (such as 7ms every time) next version of this script will be out next week i hope.
 
